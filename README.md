@@ -1,2 +1,2 @@
-# WSL—Docker
- About the process of build WSL2 backend in Docker Desktop(Win)
+# Branch—Installation
+This branch contains all of the installation packages needed.

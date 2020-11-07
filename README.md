@@ -1,4 +1,5 @@
 # ES2020——Guideline
- Guideline for `BJTU ES2020 Courses` by hj
- 
- ## Start by Homework 9 Docker Programming
+- Record of the process of finishing homework for `BJTU ES2020 Courses` by `hj`
+- This is just a repository that records the process of my homework and records common instructions.
+
+ ## Start from `Homework 9 Docker Programming`

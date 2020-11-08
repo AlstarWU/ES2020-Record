@@ -21,14 +21,10 @@
 - [图形化/*GUI*](#gui)
 
 [2.WSL相关配置/*WSL Configuration*](#wsl相关配置wsl-configuration)
-- [Guideline for `WSL`](#guideline-for-wsl)
-  - [Contents](#contents)
-  - [前言/*ReadMe*](#前言readme)
-    - [`WSL`常用指令/*`WSL` Common Commands*](#wsl常用指令wsl-common-commands)
-  - [图形化/*GUI*](#ulli图形化guiliul)
-  - [WSL相关配置/*WSL Configuration*](#wsl相关配置wsl-configuration)
-      - [迁移WSL/*Move WSL* (For Windows)](#迁移wslmove-wsl-for-windows)
-      - [WSL设置最大内存/*Set maximium Memory for WSL*](#wsl设置最大内存set-maximium-memory-for-wsl)
+- [`WSL`常用指令/*`WSL` Common Commands*](#wsl常用指令wsl-common-commands)
+- [WSL相关配置/*WSL Configuration*](#wsl相关配置wsl-configuration)
+  - [迁移WSL/*Move WSL* (For Windows)](#迁移wslmove-wsl-for-windows)
+  - [WSL设置最大内存/*Set maximium Memory for WSL*](#wsl设置最大内存set-maximium-memory-for-wsl)
 
 
 ## 前言/*ReadMe*

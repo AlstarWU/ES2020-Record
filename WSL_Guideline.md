@@ -25,7 +25,7 @@
   - [Contents](#contents)
   - [前言/*ReadMe*](#前言readme)
     - [`WSL`常用指令/*`WSL` Common Commands*](#wsl常用指令wsl-common-commands)
-  - [- <span id="gui">图形化/*GUI*</span>](#ulli图形化guiliul)
+  - [图形化/*GUI*](#ulli图形化guiliul)
   - [WSL相关配置/*WSL Configuration*](#wsl相关配置wsl-configuration)
       - [迁移WSL/*Move WSL* (For Windows)](#迁移wslmove-wsl-for-windows)
       - [WSL设置最大内存/*Set maximium Memory for WSL*](#wsl设置最大内存set-maximium-memory-for-wsl)

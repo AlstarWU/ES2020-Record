@@ -200,25 +200,22 @@ wsl --help
   - 下载压缩包/*Download Zip*
   ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108162744.png)
   - 解压压缩包/*Unzip the Compressed Package*
-<br>
-- 进入解压缩目录/*Enter in the folder you unzip it*
-  ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108162947.png)
-<br>
+- 进入解压缩目录/*Enter in the folder you unzip it*<br>
+![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108162947.png)
 - 使用Move-WSL/*Use `Move-WSl`* 
   - `Shift+右键`，选择`在Powershell中打开`/*`Shift+Right Click` and Click `Open in Powershell`
   - 使用下面命令/*Use Following Commands*
-    ```poweeshell
+    ```powershell
     ./move-wsl.ps1
     ```
   - 按程序介绍来依次执行并迁移WSL/*Follow the introduction of the program and move WSL*
-  <br>
-  ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108165147.png)
-  <br>
-  ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108165300.png)
-  <br>
-  ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108165517.png)
- <br>
-操作完成后关闭即可/*Just close the shell after operation*
+    - 1<br>
+    ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108165147.png)
+    - 2<br>
+    ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108165300.png)
+    - 3<br>
+    ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108165517.png)
+- 操作完成后关闭即可/*Just close the shell after operation*
 
 #### WSL设置最大内存/*Set maximium Memory for WSL*
 

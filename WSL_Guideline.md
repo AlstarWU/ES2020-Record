@@ -192,6 +192,8 @@ wsl --help
 #### 迁移WSL/*Move WSL* (For Windows)
 需要的工具/*Tools Needed*: [pxlrbt/Move-WSL](https://github.com/pxlrbt/move-wsl) on *Github*<br><br>
 
+注意：先关闭Docker/*Notice: Quit Docker Before the Process*
+
 - 下载并解压缩压缩包/*Download and Unzip the Compressed Package*
   - 下载压缩包/*Download Zip*
   ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108162744.png)

@@ -1,130 +1,245 @@
-# CheatSheet_Docker—Windows
-
-## `Docker`推荐参考/*Recommanded Reference for `Docker`*:  [菜鸟教程](https://www.runoob.com/docker/docker-tutorial.html)
-
-## 目录/*Contents*
-[0.Docker安装/*Install Docker*](#docker安装install-docker)
-[1.Docker_Ubuntu](#docker_ubuntu)
-- [CheatSheet_Docker—Windows](#cheatsheet_dockerwindows)
-  - [`Docker`推荐参考/*Recommanded Reference for `Docker`*:  菜鸟教程](#docker推荐参考recommanded-reference-for-docker-菜鸟教程)
-  - [目录/*Contents*](#目录contents)
-    - [Docker安装/*Install Docker*](#docker安装install-docker)
-    - [Docker_Ubuntu](#docker_ubuntu)
-      - [Docker_Ubuntu安装/*Install Docker_Ubuntu*](#docker_ubuntu安装install-docker_ubuntu)
-      - [WSL设置默认登陆账户/*Set default user for WSL*](#wsl设置默认登陆账户set-default-user-for-wsl)
-
-
-
-
-### Docker安装/*Install Docker*
-[Docker官网/*Docker Official Site*](https://www.docker.com/get-started)
-[*Docker Hub*](https://hub.docker.com/signup)
-- 在`Docker Hub`注册账号/*Sign up in `Docker Hub`*
-- 在`Docker`官网下载安装包/*Download installation packages in `Docker Official Site`*
-- 安装并使用`Docker`/*Install and Use `Docker`*
-
-Windows注意事项/*Reminder for Windows*:
-- 需要`Hyper-V`(`WSL2`可选)/`Hyper-V` is nedded(`WSL2` is alternative)
-- 启动`Docker`时乱码错误可在`PowerShell(Admin)`运行以下代码尝试解决<br>*You may try to run code below to solve a garbled error in `PowerShell(Admin)`*
-  - 错误示例/*Error Example*
-  ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108010137.png)
-  - 解决代码/*Code to Run*
-    ```powershell
-    netsh winsock reset
-    ```
-- 在安装了`WSL升级包`后，可使用`WSl`作为后端，让`Docker`运行更加流畅<br>*After install `WSL update msi`, you can use `WSL` as `Docker Backend`, and it will run smoother* 
-WSL升级包/*WSL Update MSI*: [Click Here](https://docs.microsoft.com/en-us/windows/wsl/wsl2-kernel)
-
-
-### Docker_Ubuntu
-#### Docker_Ubuntu安装/*Install Docker_Ubuntu*
-- `XLaunch`本地显示
-
-  ````Bash
-   export DISPLAY=host.docker.internal:0
-  ````
-
-
-- Docker 挂载本地目录
-
-  ```bash
-  docker run -it -v /test:/soft ubuntu /bin/bash
-  ```
-
-  命令中，`/test:/soft`里/test为Linux系统本地目录（在Windows中即为WSL里Ubuntu的目录），/test为在docker容器中对应的目录，若没有则会在docker容器中自动生成。<br>
-  *In this command, `/test` in `/test:/soft` is a local folder of Ubuntu system, `/soft` is a synced folder in docker `ubuntu container`, and it will be created automatically if it isn't exist.*
-  <br>
-
-- `Docker-ubuntu`更换软件源/*`Docker-Ubuntu` Change Software Source* 
-    Reference/参考: [*CSDN*](https://blog.csdn.net/Primavera37/article/details/106171470/)
-    `Docker-ubuntu` don't have vi, so use `echo` command to redirect/由于`Docker-ubuntu`不含vi,所以用`echo`指令来重定向
-  <br>
-    ```bash
-    # 备份sources.list/Backup
-    mv /etc/apt/sources.list /etc/apt/sources.list.back #备份原始文件以防万一/Back up the original file
+- - # Guideline for `WSL`
   
-    # 一行一行运行以下命令/Run Commands One Line by One Line
-    echo "deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse" >>/etc/apt/sources.list
-    echo "deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse" >>/etc/apt/sources.list
-    ectricted universe multiverse" >>/etc/apt/sources.list
-    echho "deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse" >>/etc/apt/sources.list
-    echo "deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main reso "deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse" >>/etc/apt/sources.list
-    echo "deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse" >>/etc/apt/sources.list
-    echo "deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse" >>/etc/apt/sources.list
-    echo "deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse" >>/etc/apt/sources.list
-    echo "deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse" >>/etc/apt/sources.list
-    echo "deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse" >>/etc/apt/sources.list
-    ```
-    运行完成后安装`vim`/*After run these commands we install `vim`*
-    ```bash
-    apt update
-    apt install vim
-    ```
-    简便方法：在`Ubuntu`镜像上挂载本机的目录，将`/etc/apt/sources.list`拷贝至挂载的目录，在`Windows`中访问并编辑。/*Easier Way:Load your `Windows Folder` on `Ubuntu` image and copy `/etc/apt/sources.list` to your loaded folder, and then use `Windows` to access and edit it.
-    <br>
-    示例代码/Example
-    - 在`WSL上`/In `WSL`
-    ```bash
-    # 在WSL中，/mnt/可以访问windows的目录，例如/mnt/d/test即代表D:/test
-    # In WSL, /mnt/ represents Windows computer folder, for example, /mnt/d/test represents D:/test
-
-    #将D盘中的desktop文件夹挂载到Ubuntu镜像中的 /share 文件夹
-    # Sync "/share" in ubuntu image with "D:/desktop" in windows
-    docker run -it -v /mnt/d/desktop:/share ubuntu /bin/bash
-
-    # 备份soures.list
-    # Backup sources.list
-    cp /etc/apt/sources.list /etc/apt/sources.list.bak
-
-    # 拷贝sources.list到挂载的目录
-    # Copy "sources.list" to the synced folder
-    cp /etc/apt/sources.list /share/sources.list
-    ```
-    <br>
-
-    - 在`Windows`中/In `Windows`
-    使用文本编辑器编辑`sources.list`/*Edit `sources.list` in `Windows`*
-    <br>
-    - 切换至`Ubuntu`镜像/Switch to `Ubuntu` image
-      ```bash
-      docker ps -a #显示所有容器/Show all Containers
-      ```
-      ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108201200.png)
+    本文档包含基础的`WSL`命令并涉及了一部分`WSL`配置
+  
+    如果在运行`WSL`时有其他的问题，可以参阅`Ubuntu_CheatSheet`来尝试解决
+  
+    *This Document Contains Basic `WSL` Commands and Involves Some `WSL` Configurations*
+  
+    *If you encounter problems when using `WSL`, you can try to read `Ubuntu_CheatSheet` to find the method.*
+  
     
-      切换至容器/*Switch to Previous Container*
-      ```bash
-      docker attach <id> # id=Container id
-      ```
-#### WSL设置默认登陆账户/*Set default user for WSL*
-WSL有时会默认使用root账户登陆，众所周知，这样是不安全的，因此可以使用以下代码来设置指定用户为默认登陆用户
-*Sometimes WSL may use `root` as the default user, it's not safe as we all know,so we can use code below to set default user*
-```powershell
-<distro> config --default-user <user>
-```
-> 在`Powershell`使用下面命令列出分发版(distro)/*Use command below in `Powershell` to show distro
-```powershell
-wsl -l # <wsl --list> also works
-```
-![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201109184800.png)
-
+  
+    ## Contents
+  
+    [前言/*Readme*](#Readme)
+  
+    [1.常用指令/*Common Commands*](#1)
+  
+    - [基础指令/*Basic Commands*](#Basic)
+    - [设置版本相关命令/*Version Setting*](#Version)
+    - [图形化/*GUI*](#gui)
+  
+    [2.WSL相关配置/*WSL Configuration*](#wsl相关配置wsl-configuration)
+    - [`WSL`常用指令/*`WSL` Common Commands*](#wsl常用指令wsl-common-commands)
+    - [WSL相关配置/*WSL Configuration*](#wsl相关配置wsl-configuration)
+      - [迁移WSL/*Move WSL* (For Windows)](#迁移wslmove-wsl-for-windows)
+      - [WSL设置最大内存/*Set maximium Memory for WSL*](#wsl设置最大内存set-maximium-memory-for-wsl)
+      - [WSL设置默认登陆账户/*Set default user for WSL*](#wsl设置默认登陆账户set-default-user-for-wsl)
+  
+  
+    ## 前言/*ReadMe*
+  
+    <span id="Readme"></span>
+  
+    - 本文档介绍的内容更多是关于`WSL 2`的，因为`Docker`可以使用`WSL 2`作为后端，这些命令更多的是在我配置`Docker`的`WSL 2`后端时用到的常用指令。
+  
+    - This document contains more about `WSL 2 commands` for the reason that `Docker` can use `WSL 2` as backend. Most of the commands are used when I build the environment for `Docker`.
+  
     
+  
+  
+    ### `WSL`常用指令/*`WSL` Common Commands*
+  
+    <span id="1"></span>
+  
+    [官方文档/*Official Reference*](https://docs.microsoft.com/zh-cn/windows/wsl/reference)
+  
+    ```powershell
+    # Powershell自带的WSL帮助文档/The help documents in powershell
+    wsl --help
+    ```
+  
+    
+  
+    - <span id="Basic">基础指令/*Basic Commands*</span>
+  
+      ```bash
+      # List WSL Distro Information/列出发行版信息
+      wsl --list --quiet：列出发行版名称
+      wsl --list --verbose：显示发行版的详细信息
+      ```
+  
+      Eg:
+  
+      ![image-20201106152217419](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/WSL_l.png)
+  
+    
+  
+      ```bash
+      # Set Default Distro/设置默认的发行版
+      wslconfig /setdefault Name
+      ```
+  
+      Eg:
+  
+      ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/WSL-SetDefault.png)
+  
+    
+  
+      ```bash
+    
+      ```
+  
+  
+    - <span id="Version">设置版本相关命令/*Version Setting*</span>
+  
+      ```bash
+      # Set default Distro Version/设置新的发行版的默认版本
+      wsl --set-default-version 2#Set default Distro Version as WSL 2/设置新的发行版的默认版本为WSL2
+      wsl --set-default-version 1#Set default Distro Version as WSL 1/设置新的发行版的默认版本为WSL1
+  
+      # Set version of a Distro/设置某一发行版的版本
+  
+      ```
+  
+    
+  
+  
+    - <span id="gui">图形化/*GUI*</span>
+    -----
+      安装`VcXsrv`/*Install `VcXsrv`*
+      - 安装`VcXsrv`/*Install `VcXsrv`*
+  
+      - 在`WSL`设置`X-Server`显示/*Set `X-Server`Display  in `WSL`*
+  
+        ```bash
+        #WSL 1
+        export DISPLAY=localhost:0
+        #WSL 2
+        export DISPLAY=`cat /etc/resolv.conf | grep nameserver | awk '{print $2}'`:0
+        ```
+  
+    ----
+  
+      显示图片/*Show image*
+  
+      参考/*Reference*:  [CSDN](https://blog.csdn.net/weixin_30834783/article/details/102144314)
+  
+      - 安装`imagemagpick`来显示图片/*Install `imagemagpick` to display image*
+  
+        ```bash
+        sudo apt install imagemagick-6.q16
+        ```
+  
+      - 通过命令显示图片/*Show image by command*
+  
+        ```bash
+        display directory/name.jpg
+        #directory/name.jpg:image directory/图片路径
+        ```
+  
+    
+  
+  
+    -----
+  
+      利用`xfce4`来为`WSL`建立可视化界面/*Use `xfce4` to build `WSL` GUI*
+  
+      参考/*Reference*: [简书](https://www.jianshu.com/p/9fdea59ae8a2)
+  
+    - 更新软件源/*Update the Sources*
+  
+      ```bash
+      sudo apt update
+      sudo apt-get update
+      ```
+  
+    - 安装`xfce4`/*Install `xfce4`
+  
+      ```bash
+      sudo apt install xfce4
+      sudo apt install xfce4-session
+      ```
+  
+    - 开启`X-Server`并映射/*Open `X-server` and export*
+  
+      - 开启`X-launch`/*Open `X-launch`*
+  
+        - 1
+  
+          ![image-20201107184933012](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/image-20201107184933012.png)
+  
+        - 2
+  
+          ![image-20201107185213493](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/image-20201107185213493.png)
+  
+        - 3
+  
+          ![image-20201107185257796](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/image-20201107185257796.png)
+  
+      - 在`WSL`中映射/*Export in `WSL`*
+  
+      ```bash
+      #WSL 1
+      export DISPLAY=localhost:0
+      #WSL 2
+      export DISPLAY=`cat /etc/resolv.conf | grep nameserver | awk '{print $2}'`:0
+      ```
+  
+      - 打开`xfce4`/*Open `xfce4`*
+  
+      ```bash
+      # 下面两个命令使用其一即可开启xfce4/Use any one of commands below can open xfce4*GUI*
+      xfce4-session
+      startxfce4
+      # 在终端中使用CTRL+C退出/Use CTRL+C to quit in terminal# 在终端中使用CTRL+C退出/Use CTRL+C to quit in terminal
+      ```
+  
+      ![image-20201107190008803](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/image-20201107190008803.png)
+  
+  
+    ## WSL相关配置/*WSL Configuration*
+    #### 迁移WSL/*Move WSL* (For Windows)
+    需要的工具/*Tools Needed*: [pxlrbt/Move-WSL](https://github.com/pxlrbt/move-wsl) on *Github*<br><br>
+  
+    注意：先关闭Docker/*Notice: Quit Docker Before the Process*
+  
+    - 下载并解压缩压缩包/*Download and Unzip the Compressed Package*
+      - 下载压缩包/*Download Zip*
+      ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108162744.png)
+      - 解压压缩包/*Unzip the Compressed Package*
+    - 进入解压缩目录/*Enter in the folder you unzip it*<br>
+    ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108162947.png)
+    - 使用Move-WSL/*Use `Move-WSl`* 
+      - `Shift+右键`，选择`在Powershell中打开`/*`Shift+Right Click` and Click `Open in Powershell`
+      - 使用下面命令/*Use Following Commands*
+        ```powershell
+        ./move-wsl.ps1
+        ```
+      - 按程序介绍来依次执行并迁移WSL/*Follow the introduction of the program and move WSL*
+        - 1<br>
+        ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108165147.png)
+        - 2<br>
+        ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108165300.png)
+        - 3<br>
+        ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108165517.png)
+    - 操作完成后关闭即可/*Just close the shell after operation*
+  
+    #### WSL设置最大内存/*Set maximium Memory for WSL*
+  
+     参考/*Reference*:  [Microsoft](https://docs.microsoft.com/zh-cn/windows/wsl/wsl-config#configure-global-options-with-wslconfig)
+    - 打开用户文件夹/*Open User's Folder*
+      `Win + R`打开运行，输入`%UserProfile%`，回车进入文件夹/*`Win + R`, input `%UserProfile%`, and then Press `enter` to Enter in the Folder*
+      ![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201108170551.png)
+    - 创建`.wslconfig`文档，并编辑/*Create a `.wslconfig` file then edit it
+      - 推荐使用`Visual Studio Code`编辑/*Recommand to Edit it by `Visual Studio Code`*
+      - 我的设置/*My Configuration*
+        ```bash
+        [wsl2]
+        memory=4GB
+        processors=4
+        swap=512MB
+        ```
+        编辑完成后保存文件/*Save the file after yoou edited it*
+      - 在powershell通过`wsl --shutdown`来关闭全部WSL进程，重启WSL即可生效/*Shut down all the processes by `wsl --shutdown` in powershell and restart WSL to take effect*
+    #### WSL设置默认登陆账户/*Set default user for WSL*
+    WSL有时会默认使用root账户登陆，众所周知，这样是不安全的，因此可以使用以下代码来设置指定用户为默认登陆用户
+    *Sometimes WSL may use `root` as the default user, it's not safe as we all know,so we can use code below to set default user*
+    ```powershell
+    <distro> config --default-user <user>
+    ```
+    > 在`Powershell`使用下面命令列出分发版(distro)/*Use command below in `Powershell` to show distro![](https://cdn.jsdelivr.net/gh/AlstarWU/Picture@Markdown/Markdown/20201109184800.png)
+    ```powershell
+    wsl -l # <wsl --list> also works
+    ```
